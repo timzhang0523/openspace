@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 contract Bank {
     address public admin;
     mapping(address => uint256) private  balances;
+    mapping (address => bool) public depositors;
     address[] public top3;
 
     constructor() {
@@ -23,21 +24,31 @@ contract Bank {
 
 
     function updateTop3(address addr) internal {
-        if (top3.length < 3) {
-            top3.push(addr);
+        if (top3.length < 3 )  {
+            
+            if(!depositors[addr]){
+                top3.push(addr);
+                depositors[addr] = true;
+            }
+            
         } else {
             for (uint i = 0; i < top3.length; i++) {
-                if (balances[addr] > balances[top3[i]]) {
+                if (balances[addr] > balances[top3[i]] ) {
                     // 先插入一个新元素
-                    top3.push(addr);
-                    // 指定位置后面的所有元素向后移动一位，再把新值指定位置元素。
-                    for(uint j = top3.length - 1; j > i; j--) {
-                        top3[j] = top3[j - 1];
+                    if(!depositors[addr]){
+                        top3.push(addr);
+                        depositors[addr] = true;
+                    
+                        // top3.push(addr);
+                        // 指定位置后面的所有元素向后移动一位，再把新值指定位置元素。
+                        for(uint j = top3.length - 1; j > i; j--) {
+                            top3[j] = top3[j - 1];
+                        }
+                        top3[i] = addr;
+                        // 删除数组最后一个元素
+                        top3.pop();
+                        break;
                     }
-                    top3[i] = addr;
-                    // 删除数组最后一个元素
-                    top3.pop();
-                    break;
                 }
             }
         }
@@ -66,7 +77,7 @@ contract Bank {
         return top3;
     }
 
-    function getUserBalance(address addr) public view returns (uint) {
+    function getBalance(address addr) public view returns (uint) {
         return balances[addr];
     }
 }
