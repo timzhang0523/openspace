@@ -13,7 +13,10 @@ contract Bank {
         require(msg.sender == owner, "Only owner can call this function.");
         _;
     }
-
+    function deposit() public virtual payable  {
+        balances[msg.sender] += msg.value;
+        updateTop3(msg.sender);
+    }
 
     function updateTop3(address addr) internal {
 
@@ -101,9 +104,8 @@ contract bigBank is Bank {
         owner = _newO;
     }
 
-    function deposit() public payable checkEther() {
-        balances[msg.sender] += msg.value;
-        updateTop3(msg.sender);
+    function deposit() public payable checkEther() override  {
+        super.deposit();
     }
 
 
