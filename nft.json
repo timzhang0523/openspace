@@ -1,0 +1,16 @@
+    {
+        "title": "集训营学员 - timzhang",
+        "description": "OpenSpace - 华语 Web3 黄埔军校",
+        "image": "https://ipfs.io/ipfs/QmVNjmPoSpP6qwi2LqVDmBw7QZ4u3WFHjsmp3jKccKPgad",
+        "attributes": [
+            {
+                "trait_type": "学号",
+                "value": "03012"
+            },
+            {
+                "trait_type": "昵称",
+                "value": "Tim"
+            }
+        ],
+        "version": "3"
+   }
