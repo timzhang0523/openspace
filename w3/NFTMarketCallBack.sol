@@ -56,7 +56,7 @@ contract NFTMarket {
     // to 购买者地址 
     // amount 数量 2
     // data 交易ID：0x0000000000000000000000000000000000000000000000000000000000000002
-    function tokensReceived(address to,uint amount,bytes calldata data) external   {
+    function tokensReceived(address to,uint amount,bytes calldata data) external returns (bool)  {
         require(msg.sender == address(token), "Only the token contract can call this function");
 
         // Decode the data to get the tokenId
@@ -72,6 +72,7 @@ contract NFTMarket {
         delete listings[tokenId];
 
         emit Purchased(tokenId, msg.sender, listing.price);
+        return true;
 
     }
 
