@@ -4,12 +4,36 @@ pragma solidity ^0.8.20;
 import {Test,Vm,console2} from "forge-std/Test.sol";
 import {Bank} from "../src/bank.sol";
 
-contract bankTest is Test {
-    Bank public bank;
+interface IbankEvent{
+    event Deposit(address indexed user, uint amount);
+}
 
+contract bankTest is Test,IbankEvent {
+    Bank public bank;
+    address alice = makeAddr('alice');
 
     function setUp() public {
         vm.label(msg.sender, "MSG_SENDER");
+        
+    }
+
+    function testDepositETH1() public {
+        bank = new Bank();
+        uint256 _amount = 1 ether;
+        vm.prank(alice);
+        vm.deal(alice, _amount);
+        assertEq(alice.balance, _amount,"emitted sender amount mismatch.");
+        vm.expectEmit(true, false, false, true);
+        
+        emit Deposit(alice,_amount);
+
+        bank.depositETH{value:_amount}();
+
+        uint balance = address(bank).balance;
+        assertEq(balance, _amount,"emitted ether mismatch.");
+        // assertEq(balance, _amount,"emitted ether mismatch.");
+        // console2.log("balance:%s==========",balance);
+        // console2.log("_amount:%s==========",_amount);
     }
 
     function testDepositETH() public {

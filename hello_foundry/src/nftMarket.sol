@@ -51,9 +51,10 @@ contract NFTMarket {
         emit DownListed(tokenId, msg.sender, 0);
     }
     // 用户购
-    function buyNFT(uint256 tokenId) public {
+    function buyNFT(uint256 tokenId,uint256 amount) public {
         Listing memory listing = listings[tokenId];
         require(listing.price > 0, "This NFT is not for sale");
+        require(amount >= listing.price, "Insufficient amount");
         token.transferFrom(msg.sender, listing.seller, listing.price);
 
         nft.transferFrom(address(this), msg.sender, tokenId);
