@@ -5,9 +5,9 @@ import { mainnet } from 'viem/chains'
 const client = createPublicClient({
   chain: mainnet,
   // transport: http()
-  transport: http('https://rpc.flashbots.net'),
+  // transport: http('https://rpc.flashbots.net'),
 
-  // transport: http(`https://mainnet.infura.io/v3/3f381652632a4f70af6c9dcde5bf9d94`),
+  transport: http(`https://rpc.particle.network/evm-chain?chainId=1&projectUuid=1cd17d2b-ee24-4aa3-9fb5-3faa106ae467&projectKey=cYpcUN7ybk6OXeDpCX0hMTt9aZAs7woMDHFP9KF5`),
 
 })
 
