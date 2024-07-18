@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <h1>Block Event Logs Example</h1>
+    <div id="app">Loading...</div>
+    <script type="module" >
+      import { usdcTransfer } from './index.ts';
+      usdcTransfer().then(res =>{
+        console.log("----->",res);
+      })
+      console.log(usdcTransfer);
+
+    </script>
+  </body>
+</html>
